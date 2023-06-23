@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f0f0f0;
+      }
+
+      .container {
+        max-width: 600px;
+        margin: 60px;
+        padding: 20px;
+        background-color: #ffffff;
+        border-radius: 5px;
+        border: 50px solid #c0c0c0;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+
+      .heading {
+        margin-top: 0;
+      }
+
+      .group {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        margin-bottom: 20px;
+      }
+
+      .image-container {
+        display: flex;
+        align-items: flex-start;
+      }
+
+      .image {
+        max-width: 100%;
+        height: auto;
+        margin-right: 10px;
+      }
+
+      .lib {
+        flex-grow: 1;
+      }
+
+      .liblio-text {
+        margin-top: 0;
+        font-size: 24px;
+      }
+
+      .liblio-description {
+        margin-bottom: 0;
+        color: #777777;
+      }
+
+      .reset-heading {
+        margin-top: 20px;
+        color: #0e273a;
+      }
+
+      .reset-paragraph {
+        margin-bottom: 10px;
+        line-height: 1.5;
+      }
+
+      .reset-button {
+        background: #0e273a;
+        color: #ffffff;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      hr {
+        margin-top: 40px;
+      }
+
+      .footer {
+        margin-top: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        text-align: right;
+      }
+
+      .footer p {
+        margin: 0;
+      }
+
+      .logo {
+        width: 30px;
+        height: 30px;
+        margin-left: 10px;
+      }
+
+      /* Media Queries */
+      @media screen and (max-width: 600px) {
+        .container {
+          padding: 10px;
+        }
+
+        .image {
+          margin-bottom: 10px;
+        }
+
+        .reset-paragraph {
+          font-size: 14px;
+        }
+
+        .reset-button {
+          font-size: 14px;
+          padding: 8px 16px;
+        }
+
+        .footer {
+          flex-wrap: wrap;
+          justify-content: center;
+          text-align: center;
+        }
+
+        .logo {
+          margin: 5px;
+        }
+      }
+
+      .group {
+        flex-wrap: wrap;
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+      }
+
+      .heading {
+        font-size: 24px;
+        margin-bottom: 10px;
+      }
+
+      .libo {
+        display: flex;
+        align-items: center;
+        font-size: 18px;
+      }
+
+      .libo span {
+        margin-left: 10px;
+        font-size: 14px;
+      }
+
+      .group .elipse {
+        width: 50px;
+        height: 50px;
+        background: #0e273a;
+        border-radius: 50%;
+        margin-right: 10px;
+      }
+
+      .inbox {
+        width: 56px;
+        text-align: center;
+        border-radius: 3px;
+        border: 2px solid rgb(240, 228, 228);
+        background: #d9d9d9;
+        margin-left: -10px;
+      }
+
+      .arrange {
+        margin-left: 20px;
+      }
+
+      .p {
+        position: absolute;
+        top: 680px;
+        left: 300px;
+      }
+    </style>
+
+    <title>Liblio Password Reset</title>
+  </head>
+
+  <body>
+    <div class="arrange">
+      <div class="group">
+        <div
+          style="
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 6%;
+          "
+        >
+          <h1 class="heading">Liblio Password Reset</h1>
+          <div class="inbox">Inbox</div>
+        </div>
+        <div style="width: 100%; display: flex; align-items: center">
+          <div class="elipse"></div>
+          <h1 class="libo">
+            liblio<span>&lt;no-reply@liblio-support.com&gt;</span>
+          </h1>
+        </div>
+      </div>
+      <div class="container">
+        <img
+          class="image"
+          src="https://drive.google.com/file/d/1QtRNypqEq6DUGhQ86U6aXngD2hvnPPrl/view?usp=drive_link"
+          alt="Liblio Logo"
+        />
+        <h3 class="reset-heading">Reset Password</h3>
+        <p class="reset-paragraph">
+          If you did not ask to change your password, then you can ignore this
+          email and your password will not be changed. The link below will
+          remain active for 24 hours.
+        </p>
+        <p class="reset-paragraph">
+          We have received a password change request for your Libblio Account,
+          with school name Christ Roi.
+        </p>
+        <a class="reset-button" href="{{resetLink}}">Reset Password</a>
+        <hr />
+        <footer class="footer">
+          <p>www.liblio.com</p>
+          <p>copyright &copy; 2023 Liblio</p>
+          <img
+            class="logo"
+            src="https://www.instagram.com/static/images/ico/favicon-192.png/68d99ba29cc8.png
+        "
+            alt="Instagram Logo"
+          />
+          <img
+            class="logo"
+            src="https://img.icons8.com/?size=512&id=xuvGCOXi8Wyg&format=png
+        "
+            alt="LinkedIn Logo"
+          />
+          <img
+            class="logo"
+            src="https://abs.twimg.com/icons/apple-touch-icon-192x192.png
+        "
+            alt="twitter link"
+          />
+          <p class="p">All rights reserved</p>
+        </footer>
+      </div>
+    </div>
+  </body>
+</html>
