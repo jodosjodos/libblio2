@@ -1,8 +1,8 @@
 import { StatusCodes } from "http-status-codes";
-import nodemailer from "nodemailer";
 import * as dotenv from "dotenv";
 import path from "path";
 import { fileURLToPath } from "url";
+import.meta.url;
 import fs from "fs";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -10,12 +10,9 @@ const __dirname = path.dirname(__filename);
 
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
-import { User } from "../models/user.model.js";
+import { User } from "../models/e-users.model.js";
 
 dotenv.config();
-const template = path.resolve(__dirname, "../templates/index.html");
-
-const html = fs.readFileSync(template, "utf-8");
 
 const generateToken = async (id) => {
   const token = await jwt.sign({ id: id }, process.env.JWT_SECRET, {
@@ -24,14 +21,10 @@ const generateToken = async (id) => {
 
   return token;
 };
-let config = {
-  service: "gmail",
-  auth: {
-    user: process.env.EMAIL,
-    pass: process.env.EMAIL_PASSWORD,
-  },
-};
-const transporter = nodemailer.createTransport(config);
+
+//End of Transporter Configurations
+
+// User Sends us Email
 
 export const resetPassword = async (req, res) => {
   try {
@@ -108,6 +101,8 @@ export const sendResetLink = async (req, res) => {
   }
 };
 
+//Login Here of the User
+
 export const loginUser = async (req, res) => {
   try {
     const { schoolName, role, password } = req.body;
@@ -132,5 +127,111 @@ export const loginUser = async (req, res) => {
     return res
       .status(StatusCodes.INTERNAL_SERVER_ERROR)
       .send({ err: "internal serve error 🥹" });
+  }
+};
+
+
+
+
+
+
+
+
+export const forgotPassword = async (req, res) => {
+  try {
+    const { emailAddress } = req.body;
+
+    let user = await School.findOne({ librarianEmail: emailAddress });
+    if (!user) {
+      user = await User.findOne({ email: emailAddress });
+    }
+
+    if (!user) {
+      console.log("User was not found with that email");
+      return res.status(401).json({ error: "Invalid credentials" });
+    }
+
+    const emailContent = `We have Received A reset Password on your Account click here to  Reset`;
+
+    await sendResetEmail(
+      emailAddress,
+      "[Reset e-Library Credentials]",
+      emailContent
+    );
+
+    res.status(201).json("Success in Sending Reset Email");
+  } catch (error) {}
+};
+
+const sendResetEmail = async (emailAddress, subject, Content) => {
+  try {
+    const our_email = process.env.EMAIL;
+    const mailOptions = {
+      from: our_email,
+      to: emailAddress,
+      subject,
+      text: Content, //Rember to Change it to html
+    };
+
+    // Send the email
+    await transporter.sendMail(mailOptions);
+  } catch (error) {
+    // Handle email sending errors
+    console.error("Error sending email:", error);
+    throw new Error("Failed to send email.");
+  }
+};
+
+export const checkTokenAndReset = async (req, res) => {
+  try {
+    const { emailAddress, newPassword, token } = req.body;
+
+    const newToken = jwt.sign({ email: emailAddress }, process.env.JWT_SECRET, {
+      expiresIn: "1h",
+    });
+
+    const schoolUser = await School.findOne({ librarianEmail: emailAddress });
+    const normalUser = await User.findOne({ email: emailAddress });
+
+    if (!schoolUser && !normalUser) {
+      console.log("User not found");
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    if (schoolUser) {
+      const decryptedEmail = decryptTokenAndGetEmail(token);
+      if (decryptedEmail !== emailAddress) {
+        console.log("Email verification failed");
+        return res.status(401).json({ error: "Email verification failed" });
+      }
+
+      schoolUser.password = await bcrypt.hash(newPassword, 10);
+      await schoolUser.save();
+    }
+    if (normalUser) {
+      const decryptedEmail = decryptTokenAndGetEmail(token);
+      if (decryptedEmail !== emailAddress) {
+        console.log("Email verification failed");
+        return res.status(401).json({ error: "Email verification failed" });
+      }
+      normalUser.password = await bcrypt.hash(newPassword, 10);
+      await normalUser.save();
+    }
+
+    return res.status(200).json({ token: newToken });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "Internal server error" });
+  }
+};
+//i want to get the new token from the returned one
+const decryptTokenAndGetEmail = (newtoken) => {
+  try {
+    const decodedToken = jwt.verify(newtoken, process.env.JWT_SECRET);
+    const { email } = decodedToken;
+    return email;
+  } catch (error) {
+    console.error(error);
+    throw new Error("Token decryption failed");
   }
 };

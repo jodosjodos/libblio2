@@ -4,6 +4,8 @@ import CreateError from "http-errors";
 import { StatusCodes } from "http-status-codes";
 dotenv.config();
 
+
+
 const hashedCodesPassword = await bcrypt.hash(process.env.CODERS_PASSWORD, 10);
 
 const compareFunction = async ({ username, password }, res) => {

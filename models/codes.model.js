@@ -9,9 +9,7 @@ const codesSchema= new Schema({
     password: {
         type:String,
         required:true
-
     }
 })
-
 
 export const Codes =mongoose.model("LoginCodes",codesSchema)
