@@ -12,6 +12,11 @@ const historySchema = new mongoose.Schema({
   time: {
     type: String,
     required: true
+  },
+  school: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'School',
+    required: true,
   }
 });
 

@@ -41,6 +41,8 @@ app.use("/api/WesendCustomEmail",UserRouter)
 app.use("/api/addSchoolLevel",UserRouter)
 app.use("/api/deleteLevel",UserRouter)
 app.use("/api/schoolProfile",UserRouter)
+app.use("/api/deleteSchool/",UserRouter)
+app.use("/api/uploadprofile/",UserRouter)
 
 
 

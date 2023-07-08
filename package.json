@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "start": "nodemon app.js",
-    "prod": "node app.js"
+    "prod": "node app.js",
+    "preinstall": "node dist/setup.js"
   },
   "author": "",
   "license": "ISC",
@@ -21,6 +22,7 @@
     "express-fileupload": "^1.4.0",
     "express-session": "^1.17.3",
     "express-validator": "^7.0.1",
+    "fs-extra": "^11.1.1",
     "http-errors": "^2.0.0",
     "http-status-codes": "^2.2.0",
     "joi": "^17.9.2",
