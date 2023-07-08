@@ -12,7 +12,7 @@ app.use(express.static("../temps"));
 
 // app.use(checkTokenExpiry)
 //Login
-
+app.use("/assets", express.static(path.join(__dirname, "public/images")));
 app.use("/api/codes",CodesRouter)
 app.use("/api/users",UserRouter)//Check back on this
 app.use("/api/sendEmail",UserRouter)
