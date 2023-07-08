@@ -1,3 +1,64 @@
+/**
+ * @swagger
+ * /schools:
+ *   post:
+ *     summary: Create a new school
+ *     description: Create a new school with the provided details
+ *     tags:
+ *       - Schools
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               schoolName:
+ *                 type: string
+ *               role:
+ *                 type: string
+ *               schoolEmail:
+ *                 type: string
+ *               librarianEmail:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *               location:
+ *                 type: string
+ *               type:
+ *                 type: string
+ *             example:
+ *               schoolName: Example School
+ *               role: Librarian
+ *               schoolEmail: school@example.com
+ *               librarianEmail: librarian@example.com
+ *               password: examplePassword
+ *               location: Example Location
+ *               type: Example Type
+ *     responses:
+ *       201:
+ *         description: School created successfully
+ *       400:
+ *         description: Failure in registering a new school
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   description: Error message
+ *       401:
+ *         description: One of the emails already exists
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   description: Error message
+ */
 import { School } from "../models/school.model.js";
 import { Resend } from "resend";
 import * as dotenv from "dotenv";

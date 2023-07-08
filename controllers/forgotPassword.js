@@ -1,3 +1,40 @@
+/**
+ * @swagger
+ * /forgot-password:
+ *   post:
+ *     summary: Send password reset email
+ *     description: Send a password reset email to the provided email address
+ *     tags:
+ *       - Authentication
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               emailAddress:
+ *                 type: string
+ *               schoolName:
+ *                 type: string
+ *             example:
+ *               emailAddress: user@example.com
+ *               schoolName: Example School
+ *     responses:
+ *       201:
+ *         description: Password reset email sent successfully
+ *       401:
+ *         description: Invalid credentials
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   description: Error message
+ */
+
 import { School } from "../models/school.model.js";
 import { User } from "../models/e-users.model.js";
 import { Resend } from "resend";
@@ -33,7 +70,6 @@ export const forgotPassword = async (req, res) => {
     const newToken = jwt.sign({ email: emailAddress }, process.env.JWT_SECRET, {
       expiresIn: "1h",
     });
-
     const __filename = fileURLToPath(import.meta.url);
     const __dirname = path.dirname(__filename);
     const templatePath = path.resolve(__dirname, "../tempos/Resetpass.html");
@@ -41,10 +77,6 @@ export const forgotPassword = async (req, res) => {
     const userData = emailContent
     .replace("{{schoolName}}",schoolOfUser);
     const redirectLink=`https://libblio.com/resetPasswordpage/${newToken}`
-   
-
-   
-
     // const emailContent = `We have received a password reset request for your account. Click ${newToken} to reset your password.`;
     // const emailContentWithToken = emailContent.replace(emailContent, "{{token}}", newToken);
     await sendResetEmail(emailAddress, "[Reset your Libblio Credentials]", userData);
@@ -54,7 +86,6 @@ export const forgotPassword = async (req, res) => {
     console.log(error);
   }
 };
-
 
 const sendResetEmail = async (emailAddress, subject,emailContent) => {
   try {
@@ -70,7 +101,52 @@ const sendResetEmail = async (emailAddress, subject,emailContent) => {
     throw error;
   }
 };
-
+/**
+ * @swagger
+ * /reset-password:
+ *   post:
+ *     summary: Reset user password
+ *     description: Reset the password for a user with the provided token
+ *     tags:
+ *       - Authentication
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               tokenbyFrontend:
+ *                 type: string
+ *               newPassword:
+ *                 type: string
+ *             example:
+ *               tokenbyFrontend: exampleToken
+ *               newPassword: exampleNewPassword
+ *     responses:
+ *       200:
+ *         description: Password updated successfully
+ *       401:
+ *         description: Invalid Token, User Was Not Found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   description: Error message
+ *       500:
+ *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   description: Error message
+ */
 
 export const checkTokenAndReset = async (req, res) => {
   try {

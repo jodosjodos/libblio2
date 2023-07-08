@@ -1,3 +1,52 @@
+/**
+ * @swagger
+ * /custom-email:
+ *   post:
+ *     summary: Send custom email
+ *     description: Send a custom email to the specified recipient
+ *     tags:
+ *       - Email
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               toEmail:
+ *                 type: string
+ *               dear:
+ *                 type: string
+ *               messageTitle:
+ *                 type: string
+ *               emailSignature:
+ *                 type: string
+ *               mssge:
+ *                 type: string
+ *               preview:
+ *                 type: string
+ *               subject:
+ *                 type: string
+ *             example:
+ *               toEmail: recipient@example.com
+ *               dear: Dear recipient
+ *               messageTitle: Example Title
+ *               emailSignature: Example Signature
+ *               mssge: Example Message
+ *               preview: Example Preview
+ *               subject: Example Subject
+ *     responses:
+ *       401:
+ *         description: Message sent successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   description: Success message
+ */
 import * as dotenv from "dotenv";
 import path from "path";
 import { fileURLToPath } from "url";

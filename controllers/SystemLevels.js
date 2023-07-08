@@ -1,3 +1,57 @@
+/**
+ * @swagger
+ * /levels:
+ *   post:
+ *     summary: Create a new level
+ *     description: Create a new level for a school
+ *     tags:
+ *       - Levels
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               levelName:
+ *                 type: string
+ *               schoolId:
+ *                 type: string
+ *             example:
+ *               levelName: Level 1
+ *               schoolId: abc123
+ *     responses:
+ *       201:
+ *         description: Level created successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: Success message
+ *       404:
+ *         description: School not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   description: Error message
+ *       500:
+ *         description: Failed to create level
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   description: Error message
+ */
 import { School } from "../models/school.model.js";
 import { Level } from "../models/systemLevels.js";
 

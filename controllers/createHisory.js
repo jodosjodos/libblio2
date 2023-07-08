@@ -1,5 +1,45 @@
+/**
+ * @swagger
+ * /history:
+ *   post:
+ *     summary: Create a history entry
+ *     description: Create a new entry in the history
+ *     tags:
+ *       - History
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               actionName:
+ *                 type: string
+ *             example:
+ *               actionName: Example Action
+ *     responses:
+ *       200:
+ *         description: History entry created successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: Success message
+ *       401:
+ *         description: Failure in creating history
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   description: Error message
+ */
 import { History } from "../models/history.model.js";
-
 export const createHistoryEntry = async (req, res) => {
   try {
     const today = new Date();

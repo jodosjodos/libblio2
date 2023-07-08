@@ -1,3 +1,24 @@
+/**
+ * @swagger
+ * /send-emails:
+ *   post:
+ *     summary: Send emails in the background
+ *     description: Send emails to multiple users in the background job
+ *     tags:
+ *       - Emails
+ *     responses:
+ *       200:
+ *         description: Emails sent successfully
+ *       500:
+ *         description: Error sending emails
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ */
 import { Resend } from "resend";
 import * as dotenv from "dotenv";
 

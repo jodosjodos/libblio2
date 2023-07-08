@@ -1,3 +1,62 @@
+/**
+ * @swagger
+ * /user-sends-email:
+ *   post:
+ *     summary: User sends email
+ *     description: Send an email from a user to a recipient
+ *     tags:
+ *       - Email
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               user_email:
+ *                 type: string
+ *               fullname:
+ *                 type: string
+ *               subject:
+ *                 type: string
+ *               message:
+ *                 type: string
+ *             example:
+ *               user_email: john@example.com
+ *               fullname: John Doe
+ *               subject: Inquiry
+ *               message: Hello, I have a question regarding your services.
+ *     responses:
+ *       200:
+ *         description: Email sent successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   description: Success status
+ *                 message:
+ *                   type: string
+ *                   description: Success message
+ *       500:
+ *         description: Failed to send email
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   description: Success status
+ *                 message:
+ *                   type: string
+ *                   description: Error message
+ *                 error:
+ *                   type: string
+ *                   description: Error details
+ */
 import { Resend } from "resend";
 import * as dotenv from "dotenv";
 import { fileURLToPath } from "url";

@@ -1,3 +1,41 @@
+/**
+ * @swagger
+ * /history:
+ *   get:
+ *     summary: Get all history entries
+ *     description: Retrieve all history entries
+ *     tags:
+ *       - History
+ *     responses:
+ *       200:
+ *         description: Success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   actionName:
+ *                     type: string
+ *                     description: Name of the action
+ *                   date:
+ *                     type: string
+ *                     description: Formatted date of the action
+ *                   time:
+ *                     type: string
+ *                     description: Time of the action
+ *       500:
+ *         description: Failed to fetch history entries
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   description: Error message
+ */
 import { History } from "../models/history.model.js";
 export const getAllHistoryEntries = async (req, res) => {
     try {
@@ -30,43 +68,4 @@ export const getAllHistoryEntries = async (req, res) => {
       res.status(500).json({ error: 'Failed to fetch history entries' });
     }
   };
-  
-
-  // export const getAllHistoryEntries = async (req, res) => {
-  //   try {
-  //     // Check if cached data exists in Redis
-  //     redisClient.get('historyEntries', async (error, cachedData) => {
-  //       if (error) {
-  //         console.error('Redis error:', error);
-  //       }
-  
-  //       if (cachedData) {
-  //         // Cached data exists, parse and return it
-  //         const parsedData = JSON.parse(cachedData);
-  //         res.status(200).json(parsedData);
-  //       } else {
-  //         // Cached data doesn't exist, query the database
-  //         const entries = await History.find();
-  //         const formattedEntries = entries.map((entry) => {
-  //           // Format the date logic...
-  
-  //           return {
-  //             actionName: entry.actionName,
-  //             date: formattedDate,
-  //             time: entry.time,
-  //           };
-  //         });
-  
-  //         // Cache the formatted entries in Redis
-  //         redisClient.set('historyEntries', JSON.stringify(formattedEntries));
-  
-  //         // Return the formatted entries
-  //         res.status(200).json(formattedEntries);
-  //       }
-  //     });
-  //   } catch (error) {
-  //     console.error('Error fetching history entries:', error);
-  //     res.status(500).json({ error: 'Failed to fetch history entries' });
-  //   }
-  // };
   

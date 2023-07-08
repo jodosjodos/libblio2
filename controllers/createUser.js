@@ -1,3 +1,55 @@
+/**
+ * @swagger
+ * /users:
+ *   post:
+ *     summary: Create a new user
+ *     description: Create a new user with the provided details
+ *     tags:
+ *       - Users
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               schoolId:
+ *                 type: string
+ *               role:
+ *                 type: string
+ *               email:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *             example:
+ *               schoolId: exampleSchoolId
+ *               role: Student
+ *               email: example@example.com
+ *               password: examplePassword
+ *     responses:
+ *       200:
+ *         description: User created successfully
+ *       400:
+ *         description: Failure in registering a new user
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   description: Error message
+ *       401:
+ *         description: One of the emails already exists
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   description: Error message
+ */
 import { School } from "../models/school.model.js";
 import { User } from "../models/e-users.model.js";
 import { Resend } from "resend";
@@ -56,7 +108,45 @@ export const createUser = async (req, res) => {
   }  
 };  
 
-
+/**
+ * @swagger
+ * /send-notifying-email:
+ *   post:
+ *     summary: Send a notifying email
+ *     description: Send a notifying email to the provided email address
+ *     tags:
+ *       - Emails
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *               subject:
+ *                 type: string
+ *               emailContent:
+ *                 type: string
+ *             example:
+ *               email: user@example.com
+ *               subject: Welcome to Libblio
+ *               emailContent: <html><body>Welcome to Libblio!</body></html>
+ *     responses:
+ *       200:
+ *         description: Email sent successfully
+ *       500:
+ *         description: Error sending email
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   description: Error message
+ */
 const sendNotifyingEmail = async (email, subject, emailContent) => {
   try {
     const data = await resend.emails.send({

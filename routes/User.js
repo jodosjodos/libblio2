@@ -15,13 +15,15 @@ import { getAllHistoryEntries } from "../controllers/getHistory.js";
 import { sendEmailsInBackgroundJob } from "../controllers/ArrayEmail.js";
 import { sendOurCustomEmail } from "../controllers/sendCustomEmail.js";
 import { createLevel } from "../controllers/SystemLevels.js";
+import { deleteLevel } from "../controllers/deleteLevel.js";
+import { uploadProfilePicture } from "../controllers/profileSchool.js";
 dotenv.config()
 
 
 export const UserRouter= express.Router()
 
 
-UserRouter.post("/login",loginUser)
+UserRouter.post("/login",loginUser)//This is for our Admin Dashbaord
 UserRouter.post("/sendResetPassword",sendResetLink)
 //-------------------------------------------------------
 // UserRouter.route(`/resetPassword/:token`).put(verifyUser,resetPassword)
@@ -39,6 +41,7 @@ UserRouter.post("/createHistoryEndpoint",createHistoryEntry)
 UserRouter.get("/Allhistory",getAllHistoryEntries)
 UserRouter.post("/addLevel",createLevel)
 UserRouter.post("/complexsend",sendEmailsInBackgroundJob)
-
+UserRouter.delete("/deleteLevel/:levelId",deleteLevel)
+UserRouter.post("/uplaodpicture/:schoolId",uploadProfilePicture)
 
 

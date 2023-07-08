@@ -1,3 +1,30 @@
+/**
+ * @swagger
+ * /schools:
+ *   get:
+ *     summary: Get all schools
+ *     description: Retrieve all schools
+ *     tags:
+ *       - Schools
+ *     responses:
+ *       200:
+ *         description: Successful operation
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/School'
+ *       500:
+ *         description: Failed to fetch schools
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ */
 import * as dotenv from "dotenv";
 import path from "path";
 import { fileURLToPath } from "url";
