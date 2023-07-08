@@ -16,7 +16,8 @@ import { sendEmailsInBackgroundJob } from "../controllers/ArrayEmail.js";
 import { sendOurCustomEmail } from "../controllers/sendCustomEmail.js";
 import { createLevel } from "../controllers/SystemLevels.js";
 import { deleteLevel } from "../controllers/deleteLevel.js";
-import { uploadProfilePicture } from "../controllers/profileSchool.js";
+import { uplaodProfilePicture } from "../controllers/profileSchool.js";
+import { deleteSchool } from "../controllers/deleteSchool.js";
 dotenv.config()
 
 
@@ -42,6 +43,7 @@ UserRouter.get("/Allhistory",getAllHistoryEntries)
 UserRouter.post("/addLevel",createLevel)
 UserRouter.post("/complexsend",sendEmailsInBackgroundJob)
 UserRouter.delete("/deleteLevel/:levelId",deleteLevel)
-UserRouter.post("/uplaodpicture/:schoolId",uploadProfilePicture)
+UserRouter.post("/uplaodpicture",uplaodProfilePicture)
+UserRouter.delete("/deleteSchool/:schoolId",deleteSchool)
 
 

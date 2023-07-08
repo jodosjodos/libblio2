@@ -66,7 +66,7 @@ export const createLevel = async (req, res) => {
     }
 
     // Create the new level document and associate it with the schoolId
-    const newLevel = await Level.create({
+     await Level.create({
       levelName,
       school: schoolId,
     });
