@@ -4,7 +4,14 @@ import { db } from "./db/db.js"
 import { CodesRouter } from "./routes/code.js"
 import { UserRouter } from "./routes/User.js"
 import swaggerJSDoc from "swagger-jsdoc"
+import path from "path"
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
 import multer from 'multer';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 dotenv.config()
 const app=express()
 app.use(express.json())
@@ -13,6 +20,7 @@ app.use(express.static("../temps"));
 // app.use(checkTokenExpiry)
 //Login
 app.use("/assets", express.static(path.join(__dirname, "public/images")));
+console.log(__dirname);
 app.use("/api/codes",CodesRouter)
 app.use("/api/users",UserRouter)//Check back on this
 app.use("/api/sendEmail",UserRouter)
